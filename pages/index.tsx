@@ -1,86 +1,148 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
+import { useRouter } from 'next/router'
+import Navbar from '../components/Navbar'
+import { ClipboardIcon } from '@heroicons/react/solid'
+import { useState } from 'react'
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ passphrase }: any) => {
+  const { query } = useRouter()
+
+  const [currentPassphrase, setCurrentPassphrase] = useState(passphrase)
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
+    <div className="flex min-h-screen flex-col items-center justify-center  text-white">
       <Head>
-        <title>Create Next App</title>
+        <title>Passphrase Generator</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
+      <Navbar index={0} />
 
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
+      {/* <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center"> */}
+      <main className="mt-20 w-full flex-1 flex-col justify-center px-20 text-center">
+        <h1 className="text-6xl font-bold">Passphrase Generator</h1>
 
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
+        {/* make a form with passphrase length */}
+        <form className="mt-10 flex flex-col items-center justify-center">
+          <label className="text-2xl">
+            <label htmlFor="passphraseLength">Passphrase Length</label>
+            <input
+              className="mt-5 ml-5 rounded text-center text-2xl text-black focus:outline-none focus:ring-4 focus:ring-blue-300"
+              type="number"
+              id="passphraseLength"
+              name="passphraseLength"
+              min="1"
+              max="100"
+              defaultValue={query.passphraseLength || 6}
+            />
+          </label>
 
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
+          {/* make a dropdown */}
+          <label className="text-2xl">
+            <label className="text-left" htmlFor="passphraseLanguage">
+              Passphrase Language
+            </label>
+            <select
+              className="mt-5 ml-5 rounded text-center text-2xl text-black focus:outline-none focus:ring-4 focus:ring-blue-300"
+              id="passphraseLanguage"
+              name="passphraseLanguage"
+              defaultValue={query.passphraseLanguage || 'english'}
+            >
+              <option value="english">English</option>
+              <option value="latin">Latin</option>
+              <option value="swedish">Swedish</option>
+              <option value="romanian">Romanian</option>
+              <option value="turkish">Turkish</option>
+            </select>
+          </label>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
+          {/* special character check mark */}
+          <label className="mt-5 mb-2 flex items-center">
+            <div className="mr-3">
+              <label htmlFor="specialCharacters" className="text-2xl">
+                Add Special Characters
+              </label>
+            </div>
+            <div className="flex h-5 items-center">
+              <input
+                id="specialCharacters"
+                aria-describedby="specialCharacters"
+                type="checkbox"
+                className="focus:ring-3 h-8 w-8 rounded border  border-gray-600 bg-gray-700 ring-offset-gray-800 focus:ring-blue-600"
+              />
+            </div>
+          </label>
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          <button className="mt-5 mr-2 mb-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Generate
+          </button>
+        </form>
+
+        {/* display passphrase */}
+        <div className="mt-10">
+          <h1 className="text-4xl">Your Passphrase is:</h1>
+          <textarea
+            className="mt-5 min-h-fit w-1/2 rounded-sm border-b border-gray-800 bg-gray-900 bg-opacity-20 p-2 text-2xl backdrop-blur-sm backdrop-filter focus:outline-none focus:ring-4 focus:ring-gray-800"
+            name=""
+            id=""
+            onChange={(e) => setCurrentPassphrase(e.target.value)}
+            defaultValue={passphrase}
+          ></textarea>
+          <h1 className="text-gray-400">
+            You can click to edit the passphrase
+          </h1>
         </div>
-      </main>
 
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        {/* button to copy passphrase */}
+        <button
+          onClick={() => navigator.clipboard.writeText(currentPassphrase)}
+          className="mt-10 mb-10 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
+          <div className="flex items-center">
+            <ClipboardIcon className="mr-1 h-4 w-4" />
+            Copy to Clipboard
+          </div>
+        </button>
+      </main>
     </div>
   )
+}
+
+export async function getServerSideProps(context: any) {
+  let passphraseLength = context.query.passphraseLength
+  let passphraseLanguage = context.query.passphraseLanguage
+
+  console.log(passphraseLanguage)
+
+  if (!passphraseLength) {
+    passphraseLength = 6
+  }
+  if (!passphraseLanguage) {
+    passphraseLanguage = 'english'
+  }
+
+  let diceRolls = ''
+
+  // generate random 5 digit dice rolls
+  for (let i = 0; i < passphraseLength; i++) {
+    let dice = ''
+    for (let j = 0; j < 5; j++) {
+      dice += Math.ceil(Math.random() * 6)
+    }
+    diceRolls += dice + (i != passphraseLength - 1 ? ',' : '')
+  }
+
+  const res = await fetch(
+    `http://localhost:3000/api/words/${passphraseLanguage}/${diceRolls}`
+  )
+  const data = await res.json()
+
+  return {
+    props: {
+      passphrase: data.words,
+    }, // will be passed to the page component as props
+  }
 }
 
 export default Home
