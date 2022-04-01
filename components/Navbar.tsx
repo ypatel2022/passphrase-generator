@@ -11,8 +11,6 @@ import Link from 'next/link'
 const Navbar = (props: any) => {
   const { index } = props
 
-  console.log(index)
-
   return (
     <nav className="w-full border-b border-gray-800 bg-opacity-20 px-2 py-2.5 backdrop-blur-sm backdrop-filter sm:px-4">
       <div className="container mx-auto flex flex-wrap items-center justify-between">

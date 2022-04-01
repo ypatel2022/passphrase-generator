@@ -5,7 +5,8 @@ const about = () => {
   return (
     <div>
       <Navbar index={2} />
-      about
+
+      {/* explain how passphrases work */}
     </div>
   )
 }

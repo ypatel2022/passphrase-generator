@@ -11,7 +11,7 @@ const Home: NextPage = ({ passphrase }: any) => {
   const [currentPassphrase, setCurrentPassphrase] = useState(passphrase)
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center  text-white">
+    <div className="flex min-h-screen flex-col items-center justify-center text-white">
       <Head>
         <title>Passphrase Generator</title>
         <link rel="icon" href="/favicon.ico" />
@@ -58,23 +58,23 @@ const Home: NextPage = ({ passphrase }: any) => {
           </label>
 
           {/* special character check mark */}
-          <label className="mt-5 mb-2 flex items-center">
-            <div className="mr-3">
-              <label htmlFor="specialCharacters" className="text-2xl">
-                Add Special Characters
-              </label>
-            </div>
-            <div className="flex h-5 items-center">
-              <input
-                id="specialCharacters"
-                aria-describedby="specialCharacters"
-                type="checkbox"
-                className="focus:ring-3 h-8 w-8 rounded border  border-gray-600 bg-gray-700 ring-offset-gray-800 focus:ring-blue-600"
-              />
-            </div>
+          <label className="mt-5 mb-2 flex items-center text-2xl">
+            <label htmlFor="specialCharacters" className="mr-3">
+              Add Special Characters
+            </label>
+            <input
+              id="specialCharacters"
+              aria-describedby="specialCharacters"
+              name="specialCharacters"
+              type="checkbox"
+              // @ts-ignore
+              // set default value of the checkbox to what it was last time
+              defaultChecked={query.specialCharacters || false}
+              className="focus:ring-3 h-8 w-8 rounded border border-gray-600 bg-gray-700 ring-offset-gray-800 focus:ring-blue-600"
+            />
           </label>
 
-          <button className="mt-5 mr-2 mb-2 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <button className="mt-5 mr-2 mb-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium  text-white hover:bg-blue-700  focus:outline-none focus:ring-4 focus:ring-blue-800">
             Generate
           </button>
         </form>
@@ -112,8 +112,7 @@ const Home: NextPage = ({ passphrase }: any) => {
 export async function getServerSideProps(context: any) {
   let passphraseLength = context.query.passphraseLength
   let passphraseLanguage = context.query.passphraseLanguage
-
-  console.log(passphraseLanguage)
+  let specialCharacters = context.query.specialCharacters == 'on'
 
   if (!passphraseLength) {
     passphraseLength = 6
@@ -137,6 +136,45 @@ export async function getServerSideProps(context: any) {
     `http://localhost:3000/api/words/${passphraseLanguage}/${diceRolls}`
   )
   const data = await res.json()
+
+  if (specialCharacters) {
+    let words = data.words.split(' ')
+    for (let i = 0; i < words.length; i++) {
+      let specialCharacterData = {
+        A: '@',
+        B: '8',
+        C: '<',
+        E: '3',
+        G: '6',
+        H: '#',
+        I: '!',
+        L: '1',
+        O: '0',
+        S: '$',
+        T: '+',
+        Z: '2',
+      }
+
+      // loop through each character in the word and replace it with a special character
+      for (let j = 0; j < words[i].length; j++) {
+        let character = words[i][j].toUpperCase()
+
+        // 10 percent chance to replace the character with a special character
+        // @ts-ignore
+        if (specialCharacterData[character] && Math.random() > 0.1) {
+          console.log(words[i])
+          words[i] = words[i].replace(
+            words[i][j],
+            // @ts-ignore
+            specialCharacterData[character]
+          )
+        }
+      }
+    }
+    // join words back together
+
+    data.words = words.join(' ')
+  }
 
   return {
     props: {
