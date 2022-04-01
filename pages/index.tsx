@@ -109,7 +109,7 @@ const Home: NextPage = ({ passphrase }: any) => {
   )
 }
 
-export async function getServerSideProps(context: any) {
+export async function getStaticProps(context: any) {
   let passphraseLength = context.query.passphraseLength
   let passphraseLanguage = context.query.passphraseLanguage
   let specialCharacters = context.query.specialCharacters == 'on'
