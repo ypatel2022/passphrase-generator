@@ -109,7 +109,7 @@ const Home: NextPage = ({ passphrase }: any) => {
   )
 }
 
-export async function getStaticProps(context: any) {
+export async function getServerSideProps(context: any) {
   let passphraseLength = context.query.passphraseLength
   let passphraseLanguage = context.query.passphraseLanguage
   let specialCharacters = context.query.specialCharacters == 'on'
@@ -161,7 +161,7 @@ export async function getStaticProps(context: any) {
 
         // 10 percent chance to replace the character with a special character
         // @ts-ignore
-        if (specialCharacterData[character] && Math.random() > 0.1) {
+        if (specialCharacterData[character] && Math.random() > 0.9) {
           console.log(words[i])
           words[i] = words[i].replace(
             words[i][j],

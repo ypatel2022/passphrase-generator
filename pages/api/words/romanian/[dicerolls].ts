@@ -1,6 +1,6 @@
 import diceware from '../../../../diceware.romanian.json'
 
-export default async (req, res) => {
+export default async (req: any, res: any) => {
   let { dicerolls } = req.query
 
   dicerolls = dicerolls.split(',')
@@ -11,8 +11,10 @@ export default async (req, res) => {
   for (let i = 0; i < dicerolls.length; i++) {
     // get the word
     if (i != dicerolls.length - 1) {
+      // @ts-ignore
       words += diceware[dicerolls[i]] + ' '
     } else {
+      // @ts-ignore
       words += diceware[dicerolls[i]]
     }
   }
