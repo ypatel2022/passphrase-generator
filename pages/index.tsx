@@ -133,7 +133,7 @@ export async function getServerSideProps(context: any) {
   }
 
   const res = await fetch(
-    `http://localhost:3000/api/words/${passphraseLanguage}/${diceRolls}`
+    `${process.env.ENDPOINT}/api/words/${passphraseLanguage}/${diceRolls}`
   )
   const data = await res.json()
 
