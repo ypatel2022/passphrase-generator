@@ -24,8 +24,8 @@ const Home: NextPage = ({ passphrase }: any) => {
         <h1 className="text-6xl font-bold">Passphrase Generator</h1>
 
         {/* make a form with passphrase length */}
-        <form className="mt-10 flex flex-col items-center justify-center">
-          <label className="text-2xl">
+        <form className="mt-10 flex flex-col items-center justify-center text-2xl">
+          <label className="">
             <label htmlFor="passphraseLength">Passphrase Length</label>
             <input
               className="mt-5 ml-5 rounded text-center text-2xl text-black focus:outline-none focus:ring-4 focus:ring-blue-300"
@@ -39,7 +39,7 @@ const Home: NextPage = ({ passphrase }: any) => {
           </label>
 
           {/* make a dropdown */}
-          <label className="text-2xl">
+          <label className="">
             <label className="text-left" htmlFor="passphraseLanguage">
               Passphrase Language
             </label>
@@ -58,7 +58,7 @@ const Home: NextPage = ({ passphrase }: any) => {
           </label>
 
           {/* special character check mark */}
-          <label className="mt-5 mb-2 flex items-center text-2xl">
+          <label className="mt-5 mb-2 flex items-center">
             <label htmlFor="specialCharacters" className="mr-3">
               Add Special Characters
             </label>
@@ -74,7 +74,7 @@ const Home: NextPage = ({ passphrase }: any) => {
             />
           </label>
 
-          <button className="mt-5 mr-2 mb-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium  text-white hover:bg-blue-700  focus:outline-none focus:ring-4 focus:ring-blue-800">
+          <button className="mt-5 mr-2 mb-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-800">
             Generate
           </button>
         </form>

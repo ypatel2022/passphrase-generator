@@ -21,7 +21,7 @@ const Navbar = (props: any) => {
             Passphrase Generator
           </span>
         </a>
-        <button
+        {/* <button
           data-collapse-toggle="mobile-menu"
           type="button"
           className="ml-3 inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
@@ -53,7 +53,7 @@ const Navbar = (props: any) => {
               clip-rule="evenodd"
             ></path>
           </svg>
-        </button>
+        </button> */}
 
         <div className="hidden w-full md:block md:w-auto" id="mobile-menu">
           <ul className="mt-4 flex flex-col  md:mt-0 md:flex-row md:space-x-8 md:text-sm md:font-medium">
@@ -62,7 +62,9 @@ const Navbar = (props: any) => {
                 href="/"
                 className={
                   'rounded py-2 pr-4 pl-3  md:block md:bg-transparent md:p-0' +
-                  (index == 0 ? ' text-white' : ' text-gray-600')
+                  (index == 0
+                    ? ' text-white'
+                    : ' text-gray-600 hover:text-gray-400')
                 }
                 aria-current="page"
               >
@@ -78,7 +80,9 @@ const Navbar = (props: any) => {
                 href="/help"
                 className={
                   'rounded py-2 pr-4 pl-3  md:block md:bg-transparent md:p-0' +
-                  (index == 1 ? ' text-white' : ' text-gray-600')
+                  (index == 1
+                    ? ' text-white'
+                    : ' text-gray-600 hover:text-gray-400')
                 }
               >
                 <div className="flex items-center">
@@ -93,7 +97,9 @@ const Navbar = (props: any) => {
                 href="/about"
                 className={
                   'rounded py-2 pr-4 pl-3  md:block md:bg-transparent md:p-0' +
-                  (index == 2 ? ' text-white' : ' text-gray-600')
+                  (index == 2
+                    ? ' text-white'
+                    : ' text-gray-600 hover:text-gray-400')
                 }
               >
                 <div className="flex items-center">
@@ -106,7 +112,7 @@ const Navbar = (props: any) => {
             <li>
               <a
                 href="https://github.com/ypatel2022/passphrase-generator"
-                className="rounded py-2 pr-4 pl-3 text-gray-600 md:block md:bg-transparent md:p-0"
+                className="rounded py-2 pr-4 pl-3 text-gray-600 hover:text-gray-400 md:block md:bg-transparent md:p-0"
               >
                 <div className="flex items-center">
                   <CodeIcon className="mr-1 h-4 w-4" />
