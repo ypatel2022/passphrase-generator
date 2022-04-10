@@ -2,6 +2,7 @@ import { ClipboardIcon } from '@heroicons/react/solid'
 import Head from 'next/head'
 import React from 'react'
 import Navbar from '../components/Navbar'
+import TableRow from '../components/TableRow'
 
 const help = () => {
   return (
@@ -68,7 +69,7 @@ const help = () => {
         </p>
 
         <p className="card flex flex-col items-center justify-center">
-          Finally, you have the option to add special characters into your
+          Additionally, you have the option to add special characters into your
           passphrase. This makes it so that certain letters will be replaced
           with a similar looking character from your keyboard. This can help
           increase the security of your passphrase a lot.
@@ -76,6 +77,59 @@ const help = () => {
           <label className="mx-auto mt-8 mb-2 flex items-center">
             <label htmlFor="specialCharacters" className="mr-3">
               Add Special Characters
+            </label>
+            <input
+              id="specialCharacters"
+              aria-describedby="specialCharacters"
+              name="specialCharacters"
+              type="checkbox"
+              // @ts-ignore
+              // set default value of the checkbox to what it was last time
+              defaultChecked={false}
+              className="focus:ring-3 h-8 w-8 rounded border border-gray-600 bg-gray-700 ring-offset-gray-800 focus:ring-blue-600"
+            />
+          </label>
+          {/* create a table of special characters */}
+          <h1 className="mt-8 mb-1 text-xl">Character Replacements</h1>
+          <div className="overflow-x-auto rounded-md shadow-md">
+            <table className="text-left text-sm text-gray-400">
+              <thead className="bg-gray-800 text-xs uppercase text-gray-400">
+                <tr>
+                  <th scope="col" className="px-6 py-3">
+                    Character
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Replacement
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <TableRow character={'A'} replacement={'@'} />
+                <TableRow character={'B'} replacement={'8'} />
+                <TableRow character={'C'} replacement={'('} />
+                <TableRow character={'E'} replacement={'3'} />
+                <TableRow character={'G'} replacement={'6'} />
+                <TableRow character={'H'} replacement={'#'} />
+                <TableRow character={'I'} replacement={'!'} />
+                <TableRow character={'L'} replacement={'1'} />
+                <TableRow character={'O'} replacement={'0'} />
+                <TableRow character={'S'} replacement={'$'} />
+                <TableRow character={'T'} replacement={'+'} />
+                <TableRow character={'Z'} replacement={'2'} />
+              </tbody>
+            </table>
+          </div>
+        </p>
+
+        <p className="card flex flex-col items-center justify-center">
+          Finally, you have the option to capitalize the first letter of each
+          word in your passphrase. Doing this can increase the security of your
+          passphrase by a lot. It is also recommended to put capitals in other
+          places rather than the first letter of each word.
+          {/* example special character */}
+          <label className="mx-auto mt-8 mb-2 flex items-center">
+            <label htmlFor="specialCharacters" className="mr-3">
+              Capitalize First Letter
             </label>
             <input
               id="specialCharacters"

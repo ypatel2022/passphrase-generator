@@ -74,6 +74,23 @@ const Home: NextPage = ({ passphrase }: any) => {
             />
           </label>
 
+          {/* special character check mark */}
+          <label className="mt-5 mb-2 flex items-center">
+            <label htmlFor="capitalize" className="mr-3">
+              Capitalize First Letter
+            </label>
+            <input
+              id="capitalize"
+              aria-describedby="capitalize"
+              name="capitalize"
+              type="checkbox"
+              // @ts-ignore
+              // set default value of the checkbox to what it was last time
+              defaultChecked={query.capitalize || false}
+              className="focus:ring-3 h-8 w-8 rounded border border-gray-600 bg-gray-700 ring-offset-gray-800 focus:ring-blue-600"
+            />
+          </label>
+
           <button className="mt-5 mr-2 mb-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-800">
             Generate
           </button>
@@ -113,6 +130,7 @@ export async function getServerSideProps(context: any) {
   let passphraseLength = context.query.passphraseLength
   let passphraseLanguage = context.query.passphraseLanguage
   let specialCharacters = context.query.specialCharacters == 'on'
+  let capitalize = context.query.capitalize == 'on'
 
   if (!passphraseLength) {
     passphraseLength = 6
@@ -137,13 +155,14 @@ export async function getServerSideProps(context: any) {
   )
   const data = await res.json()
 
+  // replace with special characters if requested
   if (specialCharacters) {
     let words = data.words.split(' ')
     for (let i = 0; i < words.length; i++) {
       let specialCharacterData = {
         A: '@',
         B: '8',
-        C: '<',
+        C: '(',
         E: '3',
         G: '6',
         H: '#',
@@ -162,7 +181,7 @@ export async function getServerSideProps(context: any) {
         // 10 percent chance to replace the character with a special character
         // @ts-ignore
         if (specialCharacterData[character] && Math.random() > 0.9) {
-          console.log(words[i])
+          // console.log(words[i])
           words[i] = words[i].replace(
             words[i][j],
             // @ts-ignore
@@ -172,7 +191,16 @@ export async function getServerSideProps(context: any) {
       }
     }
     // join words back together
+    data.words = words.join(' ')
+  }
 
+  // capitalize first letter of each word
+  if (capitalize) {
+    let words = data.words.split(' ')
+    for (let i = 0; i < words.length; i++) {
+      words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1)
+    }
+    // join words back together
     data.words = words.join(' ')
   }
 
