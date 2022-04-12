@@ -2,6 +2,7 @@ import React from 'react'
 
 const TableRow = (props: any) => {
   return (
+    // table row for the special character table. makes code reusable
     <tr className="border-b border-gray-700 bg-gray-900 hover:bg-gray-600">
       <th
         scope="row"

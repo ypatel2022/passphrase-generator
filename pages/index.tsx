@@ -6,8 +6,10 @@ import { ClipboardIcon } from '@heroicons/react/solid'
 import { useState } from 'react'
 
 const Home: NextPage = ({ passphrase }: any) => {
+  // get the url params from router
   const { query } = useRouter()
 
+  // hook for the clipboard
   const [currentPassphrase, setCurrentPassphrase] = useState(passphrase)
 
   return (
@@ -23,8 +25,8 @@ const Home: NextPage = ({ passphrase }: any) => {
       <main className="mt-20 w-full flex-1 flex-col justify-center px-20 text-center">
         <h1 className="text-6xl font-bold">Passphrase Generator</h1>
 
-        {/* make a form with passphrase length */}
         <form className="mt-10 flex flex-col items-center justify-center text-2xl">
+          {/* passphrase length */}
           <label className="">
             <label htmlFor="passphraseLength">Passphrase Length</label>
             <input
@@ -38,7 +40,7 @@ const Home: NextPage = ({ passphrase }: any) => {
             />
           </label>
 
-          {/* make a dropdown */}
+          {/* language dropdown */}
           <label className="">
             <label className="text-left" htmlFor="passphraseLanguage">
               Passphrase Language
@@ -74,7 +76,7 @@ const Home: NextPage = ({ passphrase }: any) => {
             />
           </label>
 
-          {/* special character check mark */}
+          {/* capitalize check mark */}
           <label className="mt-5 mb-2 flex items-center">
             <label htmlFor="capitalize" className="mr-3">
               Capitalize First Letter
@@ -126,15 +128,20 @@ const Home: NextPage = ({ passphrase }: any) => {
   )
 }
 
+// get the passphrase from the api
+// code only runs on the server
 export async function getServerSideProps(context: any) {
+  // get passphrase options
   let passphraseLength = context.query.passphraseLength
   let passphraseLanguage = context.query.passphraseLanguage
   let specialCharacters = context.query.specialCharacters == 'on'
   let capitalize = context.query.capitalize == 'on'
 
+  // if no passphrase length is set, set it to 6
   if (!passphraseLength) {
     passphraseLength = 6
   }
+  // if no passphrase language is set, set it to english
   if (!passphraseLanguage) {
     passphraseLanguage = 'english'
   }
@@ -147,9 +154,12 @@ export async function getServerSideProps(context: any) {
     for (let j = 0; j < 5; j++) {
       dice += Math.ceil(Math.random() * 6)
     }
+    // add dice roll to diceRolls
+    // if the this is the last diceroll, then don't add a comma for the api url
     diceRolls += dice + (i != passphraseLength - 1 ? ',' : '')
   }
 
+  // fetch the data from the api
   const res = await fetch(
     `${process.env.ENDPOINT}/api/words/${passphraseLanguage}/${diceRolls}`
   )
@@ -157,6 +167,7 @@ export async function getServerSideProps(context: any) {
 
   // replace with special characters if requested
   if (specialCharacters) {
+    // split the words into an array
     let words = data.words.split(' ')
     for (let i = 0; i < words.length; i++) {
       let specialCharacterData = {

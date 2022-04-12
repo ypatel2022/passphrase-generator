@@ -1,8 +1,10 @@
 import diceware from '../../../../diceware.turkish.json'
 
 export default async (req: any, res: any) => {
+  // Get the dice rolls from url
   let { dicerolls } = req.query
 
+  // split the dice rolls into an array
   dicerolls = dicerolls.split(',')
 
   let words = ''
@@ -19,6 +21,7 @@ export default async (req: any, res: any) => {
     }
   }
 
+  // send response to front end with passphrase
   let response = { words: words }
 
   res.status(200).json(response)
