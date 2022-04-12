@@ -8,10 +8,6 @@ View the deployed app here: https://passphrase-generator-ypatel2022.vercel.app/
 
 _Note: These instructions assume that you already have [Node.js](https://nodejs.org/en/), npm (comes with Node.js), and [git](https://git-scm.com/downloads) setup on your computer._
 
-<br/>
-
-### Project Setup
-
 Clone the repository on your terminal:
 
 ```sh
