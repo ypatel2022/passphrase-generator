@@ -205,9 +205,10 @@ export async function getServerSideProps(context: any) {
   }
 
   return {
+    // will be passed to the page component as props
     props: {
       passphrase: data.words,
-    }, // will be passed to the page component as props
+    },
   }
 }
 

@@ -1,27 +1,57 @@
-# Next.js + Tailwind CSS Example
+# Passphrase Generator
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+Passphrase Generator uses [diceware](https://en.wikipedia.org/wiki/Diceware) lists from multiple languages to generate passphrases for you. A passphrase is a password that consists of an easy to remember sequence of words. Passphrases are generally more secure than regular passwords because they contain more characters.
 
-## Preview
+View the deployed app here: https://passphrase-generator-ypatel2022.vercel.app/
 
-Preview the example live on [StackBlitz](http://stackblitz.com/):
+# Setup
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+_Note: These instructions assume that you already have [Node.js](https://nodejs.org/en/), npm (comes with Node.js), and [git](https://git-scm.com/downloads) setup on your computer._
 
-## Deploy your own
+<br/>
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+### Project Setup
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+Clone the repository on your terminal:
 
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
+```sh
+git clone https://github.com/ypatel2022/passphrase-generator.git
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Change terminal directory to project directory:
+
+```sh
+cd passphrase-generator
+```
+
+Install relevant project dependencies in terminal:
+
+```sh
+npm install
+```
+
+Create a file called `.env.local` in the project directory and copy the following code:
+
+```
+ENDPOINT=http://localhost:3000
+```
+
+Start up the development server by typing:
+
+```sh
+npm run dev
+```
+
+Open up a web browser and visit:
+
+```
+http://localhost:3000/
+```
+
+<br/>
+
+## Now you can edit the code inside the project and see live changes! 🚀
+
+<br/>
+
+For more information on developing Next.js websites, take a look at the [documentation](https://nextjs.org/docs). If you want to deploy your Next.js website, you can use [Vercel](https://vercel.com/) (the creators of Next.js!)
